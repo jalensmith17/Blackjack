@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+}
+
+#title {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+#hero-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh;
+}
+
+#dealer-hand {
+    display: flex;
+    flex-direction: row;
+}
+
+#dealer-hand img {
+    width: 100px;
+    height: 150px;
+    margin: 0 0.5rem;
+}
+
+#player-hand {
+    display: flex;
+    flex-direction: row;
+}
+
+#player-hand img {
+    width: 100px;
+    height: 150px;
+    margin: 0 0.5rem;
+}
+
