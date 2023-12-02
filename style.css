@@ -22,7 +22,7 @@ body {
     justify-content: space-evenly;
     align-items: center;
     height: 50vh;
-    background-color: #cb0e0e;
+  /* linear gradient with red and green smoothly */
 }
 
 #dealer-hand {
@@ -54,4 +54,8 @@ button {
     border-radius: 5px;
     background-color: #f5f5f5;
     cursor: pointer;
+}
+
+button:hover {
+    background-color: #e5e5e5;
 }

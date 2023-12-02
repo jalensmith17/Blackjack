@@ -10,12 +10,12 @@
 <body></body>
     <h1 id="title">Blackjack</h1>
     <div id="hero-container">
-    <h2>Dealer Hand: <span id="dealer-number"></span></h2>
+    <h2>Dealer Hand<span id="dealer-number"></span></h2>
     <div id="dealer-hand" class="hand">
         <img id="hidden-card" src="card-imgs/backcard.png" alt="backcard">
         <img src="card-imgs/10-Diamonds.png" alt="">
     </div>
-    <h2>Your Hand: <span id="player-number"></span></h2>
+    <h2>Your Hand<span id="player-number"></span></h2>
     <div id="player-hand" class="hand">
         <img src="" alt="">
         <img src="" alt="">
@@ -24,7 +24,17 @@
         <button id="hit-button">Hit</button>
         <button id="stand-button">Stand</button>
     </div>
+    <div id="betting-balance">
+        <h2>Available balance<span id="available-balance"> 5000</span></h2>
     </div>
+    </div>
+    <div id="betting-container">
+        <h2>Bet Amount<span id="bet-amount"> 0</span></h2>
+        <div id="bet-input">
+
+            <input type="number" id="bet-input-field" placeholder="Enter bet amount">
+            <button id="bet-button">Bet</button>
+        </div>
 
 </body>
 </html>
