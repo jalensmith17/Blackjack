@@ -1,27 +1,32 @@
 //VARIABLES
 //starting sum of hands
-let dealerNumber = 0;
-let playerNumber = 0;
+let dealerNumber = 0
+let playerNumber = 0
 //deck and hidden card declarations
-let deck = [];
-let hiddenCard;
+let deck = []
+let hiddenCard
 //ace count
-let dealerAceCount = 0;
-let playerAceCount = 0;
+let dealerAceCount = 0
+let playerAceCount = 0
 //player money
-let playerMoney = 100;
+let playerMoney = 100
 //bet amount
-let betAmount = 0;
+let betAmount = 0
 
 //buttons
 const hitButton = document.getElementById('hit-button');
 const standButton = document.getElementById('stand-button');
 const betButton = document.getElementById('bet-button');
 const betAmountInput = document.getElementById('bet-input-field');
+const betError = document.getElementById('bet-error');
 
 //dealer and player hand number
 const dealerHandNumber = document.getElementById('dealer-number');
 const playerHandNumber = document.getElementById('player-number');
+
+//bet number 
+const betNumber = document.getElementById('bet-number');
+const playerBalance = document.getElementById('player-balance');
 
 
 //FUNCTIONS FOR THE GAME
@@ -50,6 +55,26 @@ function shuffleDeck() {
 createDeck();
 shuffleDeck();
 
+function playerBet() {
+    betAmount = betAmountInput.value;
+
+    if (betAmount > playerMoney) {
+        betError.textContent = 'You know you dont have that much money.';
+        betAmountInput.value = null;
+        betNumber.textContent = null;
+        betButton.disabled = false;
+    } else {
+        betNumber.textContent = betAmount;
+        playerMoney -= betAmount;
+        playerBalance.textContent = playerMoney;
+        betButton.disabled = true;
+        betError.textContent = null;
+    }
+
+    console.log(playerBalance);
+}
+
+betButton.addEventListener('click', playerBet);
 
 //START OF THE GAME BECAUSE WE NEEDED TO CREATE AND SHUFFLE THE DECK ON LOAD
 
@@ -74,6 +99,9 @@ function playerHit() {
     const cardImg = document.createElement('img');
     cardImg.src = `card-imgs/${playerCard}.png`;
     document.getElementById('player-hand').appendChild(cardImg);
+    let playerSum = 0;
+    playerSum += playerCard;
+    playerHandNumber.textContent = playerSum;
     console.log(playerCard);
     //if the player busts, the dealer wins. if the player hits 21, the player wins. 
 }
