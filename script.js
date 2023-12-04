@@ -24,9 +24,10 @@ const betError = document.getElementById('bet-error');
 const dealerHandNumber = document.getElementById('dealer-number');
 const playerHandNumber = document.getElementById('player-number');
 
-//bet number 
+//bets 
 const betNumber = document.getElementById('bet-number');
 const playerBalance = document.getElementById('player-balance');
+const betDescription = document.getElementById('bet-description');
 
 
 //FUNCTIONS FOR THE GAME
@@ -56,9 +57,16 @@ createDeck();
 shuffleDeck();
 
 function playerBet() {
+    let minBet = 20;
     betAmount = betAmountInput.value;
+    betDescription.textContent = null;
 
-    if (betAmount > playerMoney) {
+    if (betAmount < minBet) {
+        betError.textContent = 'Minimum bet is ' + minBet;
+        betAmountInput.value = null;
+        betNumber.textContent = null;
+        betButton.disabled = false;
+    } else if (betAmount > playerMoney) {
         betError.textContent = 'You know you dont have that much money.';
         betAmountInput.value = null;
         betNumber.textContent = null;
@@ -74,20 +82,47 @@ function playerBet() {
     console.log(playerBalance);
 }
 
+
 betButton.addEventListener('click', playerBet);
 
 //START OF THE GAME BECAUSE WE NEEDED TO CREATE AND SHUFFLE THE DECK ON LOAD
 
 //build a function to deal two cards to the player and dealer on load, dealer has one card hidden but has a number value
 
-function dealCards() {
-    const dealerCardOne = deck.pop();
-    const dealerCardTwo = deck.pop();
-    const playerCardOne = deck.pop();
-    const playerCardTwo = deck.pop();
-    hiddenCard = dealerCardOne;
-    console.log(hiddenCard);
+function getCardNumber(card, total) {
+    let value = card.match(/\d+|[A-Z]/)[0]; // Remove the last character (the suit)
+    if (value === 'A') {
+        return (total + 11 <= 21) ? 11 : 1; // Or 11, depending on how you want to handle aces
+    } else if (['K', 'Q', 'J'].includes(value)) {
+        return 10;
+    } else {
+        return parseInt(value, 10); // Convert number cards to integers
+    }
+}
 
+function dealCards() {
+    const dealerCard1 = deck.pop();
+    const playerCard1 = deck.pop();
+    const playerCard2 = deck.pop();
+
+    const dealerCard1Img = document.createElement('img');
+    const playerCard1Img = document.createElement('img');
+    const playerCard2Img = document.createElement('img');
+
+    dealerCard1Img.src = `card-imgs/${dealerCard1}.png`;
+    playerCard1Img.src = `card-imgs/${playerCard1}.png`;
+    playerCard2Img.src = `card-imgs/${playerCard2}.png`;
+
+    document.getElementById('dealer-hand').appendChild(dealerCard1Img);
+    document.getElementById('player-hand').appendChild(playerCard1Img);
+    document.getElementById('player-hand').appendChild(playerCard2Img);
+
+    dealerNumber += getCardNumber(dealerCard1, dealerNumber);
+    playerNumber += getCardNumber(playerCard1, playerNumber);
+    playerNumber += getCardNumber(playerCard2, playerNumber);
+
+    dealerHandNumber.textContent = ' ' + dealerNumber;
+    playerHandNumber.textContent = ' ' + playerNumber;
 }
 
 dealCards();
@@ -95,15 +130,18 @@ dealCards();
 //build a function for the hit button, which will deal a card to the player. if the player busts, the dealer wins. if the player hits 21, the player wins. 
 
 function playerHit() {
-    const playerCard = deck.pop();
-    const cardImg = document.createElement('img');
-    cardImg.src = `card-imgs/${playerCard}.png`;
-    document.getElementById('player-hand').appendChild(cardImg);
-    let playerSum = 0;
-    playerSum += playerCard;
-    playerHandNumber.textContent = playerSum;
-    console.log(playerCard);
-    //if the player busts, the dealer wins. if the player hits 21, the player wins. 
+    const newCard = deck.pop();
+    const newCardImg = document.createElement('img');
+    newCardImg.src = `card-imgs/${newCard}.png`;
+    document.getElementById('player-hand').appendChild(newCardImg);
+    playerNumber += getCardNumber(newCard, playerNumber);
+    playerHandNumber.textContent = ' ' + playerNumber;
+    console.log(newCard);
+    //if the player busts, the dealer wins. if the player hits 21, the player wins.
+    
+    if (playerNumber > 21) {
+
+    }
 }
 
 document.getElementById('hit-button').addEventListener('click', playerHit);
