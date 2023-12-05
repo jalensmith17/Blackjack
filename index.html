@@ -22,9 +22,7 @@
         <button id="hit-button">Hit</button>
         <button id="stand-button">Stand</button>
     </div>
-    <div id="betting-balance">
-        <h2>Available balance <span id="player-balance"> $100</span></h2>
-    </div> 
+    
     <div id="game-log-container">
         <h2 id="game-log-text"></h2>
         <button id="play-again-button">Play Again</button>
@@ -33,9 +31,12 @@
    
     <br>
     <div id="betting-container">
+        <div id="betting-balance">
+        <h2>Available balance <span id="player-balance"></span></h2>
+    </div> 
         <h2>Bet Amount <span id="bet-number"></span></h2>
         <div id="bet-input">
-            <input type="number" id="bet-input-field" placeholder="Enter bet amount">
+            <input id="bet-input-field" placeholder="Enter $$$">
             <button id="bet-button">Bet</button>
             <h2 id="bet-error"></h2>
         </div>
