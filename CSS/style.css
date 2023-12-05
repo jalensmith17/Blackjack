@@ -1,3 +1,34 @@
+@keyframes moveInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,8 +36,10 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: ghostwhite;
+    font-family: 'Roboto Mono', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.1rem;
+    background-color: rgb(17, 17, 17);
+
 }
 
 #title {
@@ -14,6 +47,8 @@ body {
     font-weight: 700;
     text-align: center;
     margin: 2rem 0;
+    color: forestgreen;
+    letter-spacing: .3rem;
 }
 
 #hero-container {
@@ -22,6 +57,9 @@ body {
     justify-content: space-evenly;
     align-items: center;
     height: 50vh;
+    padding-bottom: 2rem;
+    margin-bottom: -2rem;
+    color: white;
   /* linear gradient with red and green smoothly */
 }
 
@@ -36,6 +74,48 @@ body {
     margin: 0 0.5rem;
 }
 
+#hidden-card {
+    animation: moveInLeft 2s ease-in-out;
+    animation-delay: 1s;
+    animation-fill-mode: backwards;
+    opacity: 1;
+}
+
+#dealer-number {
+    color: red;
+}
+
+.dealer-card {
+    animation: moveInRight 2s ease-in-out;
+    animation-delay: 2s;
+    animation-fill-mode: backwards;
+    opacity: 1;
+}
+
+#player-number {
+    color: lime;
+}   
+
+.player-card-one {
+    animation: moveInLeft 2s ease-in-out;
+    animation-delay: .5s;
+    animation-fill-mode: backwards;
+    opacity: 1;
+}
+
+.player-card-two {
+    animation: moveInRight 2s ease-in-out;
+    animation-delay: 1.5s;
+    animation-fill-mode: backwards;
+    opacity: 1;
+}
+
+#dealer-number, #player-number {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 1rem 0;
+}
+
 #player-hand {
     display: flex;
     flex-direction: row;
@@ -45,6 +125,15 @@ body {
     width: 100px;
     height: 150px;
     margin: 0 0.5rem;
+}
+
+#game-log-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding-bottom: 2rem;
 }
 
 #button-container {
@@ -60,7 +149,7 @@ body {
 
 #stand-button {
     margin: 1rem 0.5rem;
-    background-color: lime;
+    background-color: forestgreen;
 }
 
 #betting-container {
@@ -68,6 +157,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
 #bet-button {
@@ -82,15 +172,18 @@ body {
     font-weight: 700;
     border-radius: 5px;
     background-color: #f5f5f5;
+    text-align: center;
+    color: forestgreen;
 }
 
 ::-webkit-input-placeholder {
     text-align: center;
+    color: forestgreen;
   }
 
 #play-again-button {
     margin: 1rem 0.5rem;
-    background-color: yellow;
+    background-color: yellowgreen;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -103,6 +196,7 @@ button {
     font-weight: 700;
     border-radius: 5px;
     background-color: #f5f5f5;
+    color: white;
     cursor: pointer;
 }
 

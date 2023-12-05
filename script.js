@@ -118,8 +118,11 @@ function dealCards() {
     const playerCard2 = deck.pop();
 
     const dealerCard1Img = document.createElement('img');
+    dealerCard1Img.classList.add('dealer-card');
     const playerCard1Img = document.createElement('img');
+    playerCard1Img.classList.add('player-card-one');
     const playerCard2Img = document.createElement('img');
+    playerCard2Img.classList.add('player-card-two');
 
     dealerCard1Img.src = `card-imgs/${dealerCard1}.png`;
     playerCard1Img.src = `card-imgs/${playerCard1}.png`;
@@ -133,9 +136,12 @@ function dealCards() {
     playerNumber += getCardNumber(playerCard1, playerNumber);
     playerNumber += getCardNumber(playerCard2, playerNumber);
 
+    setTimeout(function() {
     dealerHandNumber.textContent = ' ' + dealerNumber;
     playerHandNumber.textContent = ' ' + playerNumber;
-
+    dealerHandNumber.style.animation = 'fadeIn 1s ease-in-out';
+    playerHandNumber.style.animation = 'fadeIn 1s ease-in-out';
+    }, 3500);
 }
 
 dealCards();
@@ -217,9 +223,8 @@ function playAgain() {
 
     hitButton.style.display = 'none';
     standButton.style.display = 'none';
-    betAmountInput.style.display = 'flex';
-    betButton.style.display = 'flex';
-    betButton.disabled = false;
+    betAmountInput.style.display = '';
+    betButton.style.display = '';
     playAgainButton.style.display = 'none';
 
     gameLog.textContent = null;
