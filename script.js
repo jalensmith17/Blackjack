@@ -13,12 +13,16 @@ let playerMoney = 100
 //bet amount
 let betAmount = 0
 
-//buttons
+//hidden card
+const hiddenCardImg = document.getElementById('hidden-card');
+
+//buttons and descriptions
 const hitButton = document.getElementById('hit-button');
 const standButton = document.getElementById('stand-button');
 const betButton = document.getElementById('bet-button');
 const betAmountInput = document.getElementById('bet-input-field');
 const betError = document.getElementById('bet-error');
+const playAgainButton = document.getElementById('play-again-button');
 
 //dealer and player hand number
 const dealerHandNumber = document.getElementById('dealer-number');
@@ -28,6 +32,14 @@ const playerHandNumber = document.getElementById('player-number');
 const betNumber = document.getElementById('bet-number');
 const playerBalance = document.getElementById('player-balance');
 const betDescription = document.getElementById('bet-description');
+
+//game log
+const gameLog = document.getElementById('game-log-text');
+
+//disable buttons
+hitButton.style.display = 'none';
+standButton.style.display = 'none';
+playAgainButton.style.display = 'none';
 
 
 //FUNCTIONS FOR THE GAME
@@ -44,10 +56,10 @@ function createDeck() {
 
 
 function shuffleDeck() {
-    for (let i = 0; i < deck.length; i++) {
+    for (let i = deck.length - 1; i > 0; i--) {
         //iterating through the deck and assigning a random card to each index
-        let randomCard = Math.floor(Math.random() * deck.length);
-        deck[i] = deck[randomCard];
+        let randomCard = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[randomCard]] = [deck[randomCard], deck[i]];
     }
     console.log(deck);
 }
@@ -60,9 +72,11 @@ function playerBet() {
     let minBet = 20;
     betAmount = betAmountInput.value;
     betDescription.textContent = null;
+    hitButton.style.display = 'flex';
+    standButton.style.display = 'flex';
 
     if (betAmount < minBet) {
-        betError.textContent = 'Minimum bet is ' + minBet;
+        betError.textContent = 'Minimum bet is $' + minBet;
         betAmountInput.value = null;
         betNumber.textContent = null;
         betButton.disabled = false;
@@ -72,27 +86,25 @@ function playerBet() {
         betNumber.textContent = null;
         betButton.disabled = false;
     } else {
-        betNumber.textContent = betAmount;
+        betNumber.textContent = '$' + betAmount;
         playerMoney -= betAmount;
-        playerBalance.textContent = playerMoney;
+        playerBalance.textContent = '$' + playerMoney;
         betButton.disabled = true;
         betError.textContent = null;
     }
-
-    console.log(playerBalance);
 }
 
 
 betButton.addEventListener('click', playerBet);
 
-//START OF THE GAME BECAUSE WE NEEDED TO CREATE AND SHUFFLE THE DECK ON LOAD
+//START OF THE GAME BECAUSE WE NEEDED TO BET MONEY, CREATE AND SHUFFLE THE DECK ON LOAD
 
 //build a function to deal two cards to the player and dealer on load, dealer has one card hidden but has a number value
 
 function getCardNumber(card, total) {
     let value = card.match(/\d+|[A-Z]/)[0]; // Remove the last character (the suit)
     if (value === 'A') {
-        return (total + 11 <= 21) ? 11 : 1; // Or 11, depending on how you want to handle aces
+        return (total + 11 <= 21) ? 11 : 1;
     } else if (['K', 'Q', 'J'].includes(value)) {
         return 10;
     } else {
@@ -123,6 +135,7 @@ function dealCards() {
 
     dealerHandNumber.textContent = ' ' + dealerNumber;
     playerHandNumber.textContent = ' ' + playerNumber;
+
 }
 
 dealCards();
@@ -138,27 +151,69 @@ function playerHit() {
     playerHandNumber.textContent = ' ' + playerNumber;
     console.log(newCard);
     //if the player busts, the dealer wins. if the player hits 21, the player wins.
-    
-    if (playerNumber > 21) {
 
+    if (playerNumber > 21) {
+        checkWinner();
     }
 }
 
-document.getElementById('hit-button').addEventListener('click', playerHit);
-
-
-//if the player gets an ace the player can choose if it is worth 1 or 11 points.
+hitButton.addEventListener('click', playerHit);
 
 //build a function for the stand button, which will reveal the hidden card and deal cards to the dealer until they reach 17 or bust
 
+function dealerDraw() {
+    const newCard = deck.pop();
+    const newCardImg = document.createElement('img');
+    newCardImg.src = `card-imgs/${newCard}.png`;
+    document.getElementById('dealer-hand').appendChild(newCardImg);
+    dealerNumber += getCardNumber(newCard, dealerNumber);
+    dealerHandNumber.textContent = ' ' + dealerNumber;
 
+    if (dealerNumber < 17) {
+        setTimeout(dealerDraw, 2000);
+    } else {
+        checkWinner();
+    }
+}
 
+function stand() {
+    const hiddenCard = deck.pop();
+    hiddenCardImg.src = `card-imgs/${hiddenCard}.png`;
 
+    dealerNumber += getCardNumber(hiddenCard, dealerNumber);
+    dealerHandNumber.textContent = ' ' + dealerNumber;
 
+    //using recursion
 
+    if (dealerNumber < 17) {
+        setTimeout(dealerDraw, 2000);
+    } else {
+        checkWinner();
+    }
+}
 
+standButton.addEventListener('click', stand);
 
+function checkWinner() {
+    playAgainButton.disabled = false;
+    playAgainButton.style.display = 'block';
+    if (playerNumber > 21) {
+        gameLog.textContent = 'You busted! Dealer wins.';
+    } else if (playerNumber === 21) {
+        gameLog.textContent = 'You win!';
+        playerMoney += betAmount * 2;
+    } else if (dealerNumber > 21) {
+        gameLog.textContent = 'Dealer busted! You win!';
+        playerMoney += betAmount * 2;
+    } else if (dealerNumber > playerNumber && dealerNumber <= 21) {
+        gameLog.textContent = 'Dealer wins!';
+    } else if (dealerNumber < playerNumber && playerNumber <= 21) {
+        gameLog.textContent = 'You win!';
+        playerMoney += betAmount * 2;
+    } else {
+        gameLog.textContent = 'Push!';
+        playerMoney += betAmount;
+    }
 
-
-
-
+    playerBalance.textContent = '$' + playerMoney;
+}
