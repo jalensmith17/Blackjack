@@ -43,7 +43,7 @@ body {
 }
 
 #title {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 700;
     text-align: center;
     margin: 2rem 0;
@@ -56,9 +56,13 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: 50vh;
     padding-bottom: 2rem;
-    margin-bottom: -2rem;
+    margin-bottom: 2rem;
     color: white;
   /* linear gradient with red and green smoothly */
 }
@@ -93,7 +97,7 @@ body {
 }
 
 #player-number {
-    color: lime;
+    color: lightseagreen;
 }   
 
 .player-card-one {
@@ -127,29 +131,38 @@ body {
     margin: 0 0.5rem;
 }
 
-#game-log-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    padding-bottom: 2rem;
-}
-
 #button-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    position: absolute;
+    width: 100%;
+    padding-bottom: 2rem;
+    top: 98%;
 }
 
 #hit-button {
     margin: 1rem 0.5rem;
     background-color: red;
+    font-size: 2rem;
+    animation: fadeIn 1s ease-in-out;
 }
 
 #stand-button {
     margin: 1rem 0.5rem;
     background-color: forestgreen;
+    font-size: 2rem;
+    animation: fadeIn 1s ease-in-out;
+}
+
+#game-log-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 95%;
+    color: white;
 }
 
 #betting-container {
@@ -157,7 +170,23 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    top: 72%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: white;
+}
+
+#player-balance {
+    font-size: 2rem;
+    margin: 1rem 0;
+    color: lime;
+}
+
+#bet-number {
+    font-size: 2rem;
+    margin: 1rem 0;
+    color: lime;
 }
 
 #bet-button {
@@ -170,7 +199,7 @@ body {
     padding: 0.5rem 1rem;
     font-size: 1rem;
     font-weight: 700;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #f5f5f5;
     text-align: center;
     color: forestgreen;
@@ -188,6 +217,9 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    font-size: 2rem;
+    z-index: 1;
+    animation: fadeIn 1s ease-in-out;
 }
 
 button {
