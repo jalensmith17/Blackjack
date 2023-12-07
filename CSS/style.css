@@ -1,3 +1,35 @@
+/* @media screen and (min-width: 1200px) {
+    body {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    #title {
+        font-size: 2.5rem;
+    }
+
+    #dealer-hand img, #player-hand img {
+        width: 80px;
+        height: 120px;
+    }
+
+    #dealer-number, #player-number {
+        font-size: 1.5rem;
+    }
+
+    #hit-button, #stand-button, #bet-button {
+        font-size: 1.5rem;
+    }
+
+    #player-balance, #bet-number {
+        font-size: 1.5rem;
+    }
+
+    #bet-input-field {
+        font-size: 1rem;
+    }
+} */
+
 @keyframes moveInLeft {
     0% {
         transform: translateX(-100%);
@@ -72,7 +104,7 @@ body {
     font-weight: 700;
     text-align: center;
     margin: 25rem 0; /* set later to 1 during gameplay in js */
-    color: rgb(182, 181, 181);
+    color: rgb(199, 43, 43);
     letter-spacing: .5rem;
     animation: breathing 5s ease-out infinite normal;
 }

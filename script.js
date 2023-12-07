@@ -52,8 +52,8 @@ playAgainButton.style.display = 'none';
 
 //FUNCTIONS FOR THE GAME
 function createDeck() {
-    let values = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
-    let suit = ['Spades','Diamonds','Hearts','Clubs'];
+    let values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    let suit = ['Spades', 'Diamonds', 'Hearts', 'Clubs'];
     for (let i = 0; i < suit.length; i++) {
         for (let j = 0; j < values.length; j++) {
             deck.push(values[j] + suit[i]); //this puts together the values and suits. images will be pushed in later
@@ -78,15 +78,17 @@ shuffleDeck();
 playerBalance.textContent = '$' + playerMoney;
 betAmountTitle.style.display = 'none';
 
-function playerBet() {
-    let minBet = 20;
-    betAmount = betAmountInput.value;
-    betDescription.textContent = null;
+function moveDescription() {
     bettingContainer.style.marginTop = '2rem';
     bettingContainer.style.animation = 'fadeIn 1s ease-in-out';
     title.style.marginTop = '1rem';
     title.style.animation = 'fadeIn 1s ease-in-out';
-    
+}
+
+function playerBet() {
+    let minBet = 20;
+    betAmount = betAmountInput.value;
+    betDescription.textContent = null;
 
     if (betAmount < minBet) {
         betError.textContent = 'Minimum bet is $' + minBet;
@@ -94,10 +96,11 @@ function playerBet() {
         betNumber.textContent = null;
         betButton.disabled = false;
     } else if (betAmount > playerMoney) {
-        betError.textContent = 'You know you dont have that much money.';
+        betError.textContent = 'You do not have enough money to bet that amount.';
     } else if (isNaN(betAmount)) {
         betError.textContent = 'Please enter a valid number.';
     } else {
+        moveDescription();
         betNumber.textContent = '$' + betAmount;
         betAmountTitle.style.display = '';
         playerMoney -= betAmount;
@@ -123,7 +126,7 @@ function getCardNumber(card, total) {
     } else if (['K', 'Q', 'J'].includes(value)) {
         return 10;
     } else {
-        return parseInt(value, 10); 
+        return parseInt(value, 10);
     }
 }
 
@@ -151,11 +154,11 @@ function dealCards() {
     playerNumber += getCardNumber(playerCard1, playerNumber);
     playerNumber += getCardNumber(playerCard2, playerNumber);
 
-    setTimeout(function() {
-    dealerHandNumber.textContent = ' ' + dealerNumber;
-    playerHandNumber.textContent = ' ' + playerNumber;
-    dealerHandNumber.style.animation = 'fadeIn 1s ease-in-out';
-    playerHandNumber.style.animation = 'fadeIn 1s ease-in-out';
+    setTimeout(function () {
+        dealerHandNumber.textContent = ' ' + dealerNumber;
+        playerHandNumber.textContent = ' ' + playerNumber;
+        dealerHandNumber.style.animation = 'fadeIn 1s ease-in-out';
+        playerHandNumber.style.animation = 'fadeIn 1s ease-in-out';
     }, 3500);
 }
 
@@ -164,7 +167,7 @@ dealCards();
 //build a function for the hit button, which will deal a card to the player. if the player busts, the dealer wins. if the player hits 21, the player wins. 
 
 function playerHit() {
-    
+
     const newCard = deck.pop();
     const newCardImg = document.createElement('img');
     newCardImg.style.animation = 'moveInRight .5s ease-in-out';
@@ -175,6 +178,11 @@ function playerHit() {
 
     if (playerNumber > 21) {
         checkWinner();
+    } else if (playerNumber === 21) {
+        setTimeout(dealerDraw, 2000);
+        gameLog.textContent = 'You got Blackjack!'; //fix the hidden card being shown when the player gets blackjack before presentation
+        hitButton.disabled = true;
+        standButton.disabled = true;
     }
 }
 
@@ -205,6 +213,7 @@ function stand() {
     hiddenCardImg.src = `card-imgs/${hiddenCard}.png`;
     dealerNumber += getCardNumber(hiddenCard, dealerNumber);
     dealerHandNumber.textContent = ' ' + dealerNumber;
+    standButton.disabled = true;
 
     if (dealerNumber < 17) {
         setTimeout(dealerDraw, 2000); //using recursion
@@ -248,12 +257,12 @@ function playAgain() {
     dealerHandNumber.offsetHeight; // reflow
     playerHandNumber.offsetHeight; // reflow
 
-    setTimeout(function() {
+    setTimeout(function () {
         dealerHandNumber.textContent = ' ' + dealerNumber;
         playerHandNumber.textContent = ' ' + playerNumber;
         dealerHandNumber.style.animation = 'fadeIn 1s ease-in-out';
         playerHandNumber.style.animation = 'fadeIn 1s ease-in-out';
-        }, 3500);
+    }, 3500);
 
     deck = [];
     createDeck();
@@ -278,13 +287,11 @@ function playAgain() {
 function checkWinner() {
     hitButton.style.display = 'none';
     hitButton.disabled = false;
+    standButton.disabled = false;
     standButton.style.display = 'none';
     playAgainButton.style.display = '';
     if (playerNumber > 21) {
         gameLog.textContent = 'You busted! Dealer wins.';
-    } else if (playerNumber === 21) {
-        gameLog.textContent = 'You win!';
-        playerMoney += betAmount * 2;
     } else if (dealerNumber > 21) {
         gameLog.textContent = 'Dealer busted! You win!';
         playerMoney += betAmount * 2;
@@ -293,14 +300,14 @@ function checkWinner() {
     } else if (dealerNumber < playerNumber && playerNumber <= 21) {
         gameLog.textContent = 'You win!';
         playerMoney += betAmount * 2;
-    } else {
+    } else if (dealerNumber === playerNumber) {
         gameLog.textContent = 'Push!';
         playerMoney += parseInt(betAmount, 10);
     }
 
     if (playerMoney < 20) {
         gameLog.textContent = 'Game over.';
-        playAgainButton.addEventListener('click', function() {
+        playAgainButton.addEventListener('click', function () {
             location.reload();
         });
     }

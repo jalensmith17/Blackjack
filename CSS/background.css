@@ -32,7 +32,7 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: rgb(20, 85, 20);
+  background-color: rgb(17, 18, 17);
 }
 
 section {
@@ -80,13 +80,13 @@ section {
 
 .chip div:nth-child(4) {
   left: 85%;
-  animation: fall 6s linear infinite;
+  animation: fall 8s linear infinite;
   animation-delay: -5s;
 }
 
 .chip div:nth-child(5) {
   left: 15%;
-  animation: fall 6s linear infinite;
+  animation: fall 5.5s linear infinite;
   animation-delay: -10s;
 }
 
@@ -94,6 +94,24 @@ section {
   left: 90%;
   animation: fall 7s linear infinite;
   animation-delay: -4s;
+}
+
+.chip div:nth-child(7) {
+  left: 30%;
+  animation: fall 6s linear infinite;
+  animation-delay: -6s;
+}
+
+.chip div:nth-child(8) {
+  left: 80%;
+  animation: fall 7s linear infinite;
+  animation-delay: -8s;
+}
+
+.chip div:nth-child(9) {
+  left: 25%;
+  animation: fall 6s linear infinite;
+  animation-delay: -9s;
 }
 
 .chip-one {
