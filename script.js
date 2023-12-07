@@ -13,6 +13,10 @@ let playerMoney = 100
 //bet amount
 let betAmount = 0
 
+//hero container
+const title = document.getElementById('title');
+const heroContainer = document.getElementById('hero-container');
+
 //hidden card
 const hiddenCardImg = document.getElementById('hidden-card');
 
@@ -78,6 +82,11 @@ function playerBet() {
     let minBet = 20;
     betAmount = betAmountInput.value;
     betDescription.textContent = null;
+    bettingContainer.style.marginTop = '2rem';
+    bettingContainer.style.animation = 'fadeIn 1s ease-in-out';
+    title.style.marginTop = '1rem';
+    title.style.animation = 'fadeIn 1s ease-in-out';
+    
 
     if (betAmount < minBet) {
         betError.textContent = 'Minimum bet is $' + minBet;
@@ -96,8 +105,9 @@ function playerBet() {
         betError.textContent = null;
         betAmountInput.style.display = 'none';
         betButton.style.display = 'none';
-        hitButton.style.display = 'flex';
-        standButton.style.display = 'flex';
+        hitButton.style.display = '';
+        standButton.style.display = '';
+        heroContainer.style.display = 'flex';
     }
 }
 
@@ -154,6 +164,7 @@ dealCards();
 //build a function for the hit button, which will deal a card to the player. if the player busts, the dealer wins. if the player hits 21, the player wins. 
 
 function playerHit() {
+    
     const newCard = deck.pop();
     const newCardImg = document.createElement('img');
     newCardImg.style.animation = 'moveInRight .5s ease-in-out';
@@ -161,7 +172,6 @@ function playerHit() {
     document.getElementById('player-hand').appendChild(newCardImg);
     playerNumber += getCardNumber(newCard, playerNumber);
     playerHandNumber.textContent = ' ' + playerNumber;
-    console.log(newCard);
 
     if (playerNumber > 21) {
         checkWinner();
@@ -189,16 +199,15 @@ function dealerDraw() {
 }
 
 function stand() {
+    hitButton.disabled = true;
+
     const hiddenCard = deck.pop();
     hiddenCardImg.src = `card-imgs/${hiddenCard}.png`;
-
     dealerNumber += getCardNumber(hiddenCard, dealerNumber);
     dealerHandNumber.textContent = ' ' + dealerNumber;
 
-    //using recursion
-
     if (dealerNumber < 17) {
-        setTimeout(dealerDraw, 2000);
+        setTimeout(dealerDraw, 2000); //using recursion
     } else {
         checkWinner();
     }
@@ -215,6 +224,8 @@ function playAgain() {
             dealerHand.removeChild(card);
         }
     });
+
+    heroContainer.style.display = 'none';
 
     //resetting it back with styles
     hiddenCardImg.src = 'card-imgs/backcard.png';
@@ -254,6 +265,8 @@ function playAgain() {
     betButton.style.display = '';
     betAmountTitle.style.display = 'none';
     playAgainButton.style.display = 'none';
+    title.style.marginTop = '';
+    bettingContainer.style.marginTop = '';
 
     gameLog.textContent = null;
 
@@ -264,8 +277,9 @@ function playAgain() {
 
 function checkWinner() {
     hitButton.style.display = 'none';
+    hitButton.disabled = false;
     standButton.style.display = 'none';
-    playAgainButton.style.display = 'block';
+    playAgainButton.style.display = '';
     if (playerNumber > 21) {
         gameLog.textContent = 'You busted! Dealer wins.';
     } else if (playerNumber === 21) {

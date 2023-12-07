@@ -1,42 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="CSS/style.css" />
+    <link rel="stylesheet" href="CSS/background.css" />
     <script src="script.js" defer></script>
     <title>Blackjack Game</title>
-</head>
-<body>
-    <h1 id="title">Blackjack</h1>
-    <div id="hero-container">
-        <h2>Dealer Hand<span id="dealer-number"></span></h2>
-        <div id="dealer-hand" class="hand">
-            <img id="hidden-card" src="card-imgs/backcard.png" alt="backcard">
-        </div>
-        <h2>Your Hand<span id="player-number"></span></h2>
-        <div id="player-hand" class="hand"></div>
-        <div id="button-container">
-            <button id="hit-button">Hit</button>
-            <button id="stand-button">Stand</button>
-        </div>
-        <div id="game-log-container">
-            <h2 id="game-log-text"></h2>
-            <button id="play-again-button">Play Again</button>
-        </div>
+  </head>
+  <body>
+    <h1 id="title" class="title-animation">Blackjack</h1>
+    <div id="hero-container" class="hidden">
+      <h2>Dealer Hand<span id="dealer-number"></span></h2>
+      <div id="dealer-hand" class="hand">
+        <img id="hidden-card" src="card-imgs/backcard.png" alt="backcard" />
+      </div>
+
+      <h2>Your Hand<span id="player-number"></span></h2>
+      <div id="player-hand" class="hand"></div>
+
+      <div id="button-container">
+        <button id="hit-button">Hit</button>
+        <button id="stand-button">Stand</button>
+      </div>
+
+      <div id="game-log-container">
+        <h2 id="game-log-text"></h2>
+        <button id="play-again-button">Play Again</button>
+      </div>
+
     </div>
-    <br>
+    <br />
+
     <div id="betting-container">
-        <h2 id="bet-description">Please place a bet of $20 or more before playing!</h2>
-        <div id="betting-balance">
-            <h2>Available Balance <span id="player-balance"></span></h2>
-        </div> 
-        <h2 id="bet-amount-title">Bet Amount <span id="bet-number"></span></h2>
-        <div id="bet-input">
-            <input id="bet-input-field" placeholder="$$$">
-            <button id="bet-button">Bet</button>
-            <h2 id="bet-error"></h2>
-        </div>
+      <h2 id="bet-description">
+        Please place a bet of $20 or more before playing!
+      </h2>
+      <div id="betting-balance">
+        <h2>Available Balance <span id="player-balance"></span></h2>
+      </div>
+      <h2 id="bet-amount-title">Bet Amount <span id="bet-number"></span></h2>
+      <div id="bet-input">
+        <input id="bet-input-field" placeholder="$$$" />
+        <button id="bet-button">Bet</button>
+        <h2 id="bet-error"></h2>
+      </div>
     </div>
-</body>
+
+    <section>
+      <div class="chip">
+          <div> <img class="chip-imgs" src="background-imgs/bluechip1.png"></div>
+          <div><img class="chip-imgs" src="background-imgs/bluechip2.png"></div>
+          <div> <img class="chip-imgs" src="background-imgs/redchip1.png"></div>
+          <div> <img class="chip-imgs" src="background-imgs/blackchip1.png"></div>
+          <div> <img class="chip-imgs" src="background-imgs/redchip2.png"></div>
+          <div><img class="chip-imgs" src="background-imgs/blackchip2.png"></div>
+      </div>
+  </section>
+
+  </body>
 </html>
