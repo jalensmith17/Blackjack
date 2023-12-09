@@ -15,7 +15,6 @@ Play against the dealer and whoever has the highest hand wins, but hand cannot b
 If dealer goes over 21, player wins
 If player goes over 21, dealer wins
 If hand is = to 21, player or dealer gets BLACKJACK
-Starting Ace count for both hands is 0
 
 
 # Betting
