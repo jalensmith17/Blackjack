@@ -2,15 +2,13 @@
 //starting sum of hands
 let dealerNumber = 0
 let playerNumber = 0
+
 //deck and hidden card declarations
 let deck = []
 let hiddenCard
-//ace count
-let dealerAceCount = 0
-let playerAceCount = 0
+
 //player money
 let playerMoney = 100
-//bet amount
 let betAmount = 0
 
 //hero container
@@ -78,7 +76,7 @@ function createDeck() {
 
 function shuffleDeck() {
   for (let i = deck.length - 1; i > 0; i--) {
-    //iterating through the deck and assigning a random card to each index. fisher yates shuffle
+    //iterating through the deck and assigning a random card to each index. fisher yates shuffle starts from the back of the index
     let randomCard = Math.floor(Math.random() * (i + 1));
     [deck[i], deck[randomCard]] = [deck[randomCard], deck[i]];
   }
