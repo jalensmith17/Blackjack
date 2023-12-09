@@ -30,6 +30,18 @@
     }
 } */
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&display=swap');
+
+@media screen and (max-width: 600px) {
+    #title {
+        margin: 10rem 0;
+    }
+
+    #betting-container {
+        top: 90%;
+    }
+}
+
 @keyframes moveInLeft {
     0% {
         transform: translateX(-100%);
